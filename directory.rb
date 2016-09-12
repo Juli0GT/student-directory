@@ -49,6 +49,15 @@ def print_beginning_with(names)
   end
 end
 
+# Exercise 3
+def print_shorter_12(names)
+  names.each do |name|
+    puts "The students whose name have less than 12 characters are: "
+    if (name[:name]).length < 12
+      puts "#{name[:name]} (#{name[:cohort]} cohort)"
+    end
+  end
+end
 
 
 
