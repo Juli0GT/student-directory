@@ -27,8 +27,8 @@ def print_header
 end
 
 def print(names)
-  names.each do |name|
-    puts "#{name[:name]} (#{name[:cohort]} cohort)"
+  names.each.with_index(1) do |name, i|
+    puts "#{i}. #{name[:name]} (#{name[:cohort]} cohort)"
   end
 end
 
