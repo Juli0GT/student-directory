@@ -83,14 +83,26 @@ def input_students_keys
   students.each do |name|
     name[:hobby] = "coding"
     name[:country_birth] = "Spain"
-    name[:height] = "1.85 meters"
+    name[:food] = "paella"
   end
-
   students
 end
+
+def print_indexed_keys(names)
+  names.each.with_index(1) do |name, i|
+    print "#{i}. #{name[:name]} (#{name[:cohort]} cohort), is from #{name[:country_birth]}"
+    puts " loves #{name[:hobby]} and eating #{name[:food].}"
+  end
+end
+
+
+
+
+
 
 
 
 # Nothing happens until we call the methods
 students = input_students_keys
-puts students
+
+print_indexed_keys(students)
