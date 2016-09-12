@@ -26,30 +26,34 @@ def print_header
   puts "-------------"
 end
 
+def print_footer(names)
+  puts "Overall, we have #{names.count} great students"
+end
+
+# Exercise 1
 def print_indexed(names)
   names.each.with_index(1) do |name, i|
     puts "#{i}. #{name[:name]} (#{name[:cohort]} cohort)"
   end
 end
 
+# Exercise 2
 def print_beginning_with(names)
   puts "Which initial are you interested in?"
   letter = gets.chomp
-  names.each.with_index(1) do |name, i|
+  names.each do |name|
+    puts "The students whose initial is #{letter.capitalize} are: "
     if (name[:name])[0] == letter.capitalize
-      puts "The students whose initial is #{letter.capitalize} are: "
-      puts "#{i}. #{name[:name]} (#{name[:cohort]} cohort)"
+      puts "##{name[:name]} (#{name[:cohort]} cohort)"
     end
   end
 end
 
 
-def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
-end
+
 
 
 # Nothing happens until we call the methods
 students = input_students
-print_beginning_with(students)
+print_shorter_12(students)
 print_footer(students)
