@@ -59,10 +59,18 @@ def print_shorter_12(names)
   end
 end
 
-
+# Exercise 4
+def print_while(names)
+  while !names.empty? do
+    names.each do |name|
+      puts "#{name[:name]} (#{name[:cohort]} cohort)"
+    end
+    break names.empty?
+  end
+end
 
 
 # Nothing happens until we call the methods
 students = input_students
-print_shorter_12(students)
+print_while(students)
 print_footer(students)
