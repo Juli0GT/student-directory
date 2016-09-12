@@ -69,8 +69,28 @@ def print_while(names)
   end
 end
 
+# Exercise 5
+def input_students_keys
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  students = []
+  name = gets.chomp
+  while !name.empty? do
+    students << {name: name, cohort: :november}
+    puts "Now we have #{students.count} students"
+    name = gets.chomp
+  end
+  students.each do |name|
+    name[:hobby] = "coding"
+    name[:country_birth] = "Spain"
+    name[:height] = "1.85 meters"
+  end
+
+  students
+end
+
+
 
 # Nothing happens until we call the methods
-students = input_students
-print_while(students)
-print_footer(students)
+students = input_students_keys
+puts students
