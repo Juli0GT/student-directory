@@ -91,11 +91,9 @@ end
 def print_indexed_keys(names)
   names.each.with_index(1) do |name, i|
     print "#{i}. #{name[:name]} (#{name[:cohort]} cohort), is from #{name[:country_birth]}"
-    puts " loves #{name[:hobby]} and eating #{name[:food].}"
+    puts " loves #{name[:hobby]} and eating #{name[:food]}."
   end
 end
-
-
 
 
 
