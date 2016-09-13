@@ -90,9 +90,15 @@ end
 
 def print_indexed_keys(names)
   names.each.with_index(1) do |name, i|
-    print "#{i}. #{name[:name]} (#{name[:cohort]} cohort), is from #{name[:country_birth]}"
-    puts " loves #{name[:hobby]} and eating #{name[:food]}."
+    print "#{i}. #{name[:name]} (#{name[:cohort]} cohort) is from #{name[:country_birth]}"
+    puts " loves #{name[:hobby]} and #{name[:food]}."
   end
+end
+
+# Exercise 6
+def print_header_center
+  puts "The students of Villains Academy".center(50)
+  puts "-------------".center(50)
 end
 
 
@@ -102,5 +108,5 @@ end
 
 # Nothing happens until we call the methods
 students = input_students_keys
-
+print_header_center
 print_indexed_keys(students)
