@@ -101,12 +101,108 @@ def print_header_center
   puts "-------------".center(50)
 end
 
+# Excercise 7
+def input_students_cohort
+  puts "Please enter the names and cohort of the students"
+  puts "To finish, just hit return twice"
+  students = []
+  puts "Enter the name"
+  name = gets.chomp
+  puts "Now enter the cohort"
+  cohort = gets.chomp
+  if cohort.empty?
+    cohort = :November
+  end
+  cohort = :"#{cohort}"
+  puts "#{name} (#{cohort} cohort)"
+  puts "In case that's wrong, please press 'n'"
+  correct = gets.chomp
+
+  while correct.capitalize == "N"
+    puts "Please enter again your name"
+    name = gets.chomp
+    puts "Now enter your cohort"
+    cohort = gets.chomp
+    if cohort.empty?
+      cohort = "november"
+    end
+    cohort = :"#{cohort}"
+    puts "#{name} (#{cohort} cohort)"
+    puts "In case that's wrong, please press 'n'"
+    correct = gets.chomp
+  end
+  puts "Right #{name} you have been assigned to #{cohort} cohort"
+  while !name.empty? do
+    students << {name: name, cohort: cohort}
+    puts "Now we have #{students.count} students"
+    puts "Enter a new name"
+    name = gets.chomp
+    if !name.empty?
+      puts "And now the cohort"
+      cohort = gets.chomp
+      if cohort.empty?
+        cohort = :November
+      end
+      cohort = :"#{cohort}"
+      puts "#{name} (#{cohort} cohort)"
+      puts "In case that's wrong, please press 'n'"
+      correct = gets.chomp
+      while correct.capitalize == "N"
+        puts "Please enter again your name"
+        name = gets.chomp
+        puts "Now enter your cohort"
+        cohort = gets.chomp
+        if cohort.empty?
+          cohort = "november"
+        end
+        cohort = :"#{cohort}"
+        puts "#{name} (#{cohort} cohort)"
+        puts "In case that's wrong, please press 'n'"
+        correct = gets.chomp
+      end
+      puts "Right #{name} you have been assigned to #{cohort} cohort"
+    end
+  end
+  students.each do |name|
+    name[:hobby] = "coding"
+    name[:country_birth] = "Spain"
+    name[:food] = "paella"
+  end
+end
+
+# Excercise 8
+
+# Excercise 9
+
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  # Create and empty array
+  students = []
+  # Get the first name
+  name = gets.chomp
+  # While the name is not empty, repeat this code
+  while !name.empty? do
+    # Add the student hash, to the array students
+    students << {name: name, cohort: :november}
+    if students.size == 1
+      puts "Now we have #{students.count} student."
+    else
+      puts "Now we have #{students.count} students."
+    end
+    # Get another name from the user
+    name = gets.chomp
+  end
+  # Return the array of students
+  students
+end
+
 
 
 
 
 
 # Nothing happens until we call the methods
-students = input_students_keys
-print_header_center
+students = input_students_cohort
 print_indexed_keys(students)
+students
