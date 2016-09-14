@@ -101,7 +101,7 @@ def print_header_center
   puts "-------------".center(50)
 end
 
-# Excercise 7
+# Exercise 7
 def input_students_cohort
   puts "Please enter the names and cohort of the students"
   puts "To finish, just hit return twice"
@@ -170,10 +170,21 @@ def input_students_cohort
   end
 end
 
-# Excercise 8
+# Exercise 8
+def print_by_cohort(names)
+  puts "Which cohort are you interested in?"
+  cohort = gets.chomp
+  cohort = :"#{cohort}"
+  puts "The students form the #{cohort} cohort are :"
+  names.select do |name|
+    if name[:cohort] == cohort.capitalize
+      print "#{name[:name]} from #{name[:country_birth]}"
+      puts " loves #{name[:hobby]} and #{name[:food]}."
+    end
+  end
+end
 
-# Excercise 9
-
+# Exercise 9
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -197,12 +208,10 @@ def input_students
   students
 end
 
+# Exercise 10
+# .chomp() == delete("\n") ==.tr("\n", "") == .gsub("\n", "")
+puts "What's your name?"
+name = gets.delete("\n")
+puts "Hello #{name}, how are you today?"
 
-
-
-
-
-# Nothing happens until we call the methods
-students = input_students_cohort
-print_indexed_keys(students)
-students
+# .chomp() == delete("\n") ==.tr("\n", "") == .gsub("\n", "")
