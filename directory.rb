@@ -1,5 +1,6 @@
 # Final solution before exercises:
 @students = []
+require 'csv'
 
 def print_menu
   puts "1. Input the students"
@@ -294,11 +295,9 @@ end
 # Exercise 6
 
 def save_students(filename)
-  File.open(filename, "w") do |file|
+  CSV.open(filename, "wb") do |csv|
     @students.each do |student|
-      student_data = [student[:name], student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
+      csv << [student[:name], student[:cohort]]
     end
   end
   puts "Your students list has been saved successfully on #{filename}."
