@@ -291,14 +291,16 @@ def process(selection)
   end
 end
 
+# Exercise 6
+
 def save_students(filename)
-  file = File.open(filename, "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File.open(filename, "w") do |file|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
   puts "Your students list has been saved successfully on #{filename}."
 end
 
@@ -308,12 +310,12 @@ def load_students(filename)
     puts "Sorry, #{filename} doesn't exist."
     exit
   end
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    introduce_students(name, cohort)
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      introduce_students(name, cohort)
+    end
   end
-  file.close
   puts "Your students list has been loaded successfully"
 end
 
