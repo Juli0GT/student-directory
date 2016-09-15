@@ -26,11 +26,14 @@ def process(selection)
       # show the students
       show_students
     when "3"
-      # save the list to students.csv
-      save_students
+      print "Please, introduce the name of the file where you will save your students list"
+      puts "Remember that it need to have an .csv extension"
+      filename = gets.chomp
+      save_students(filename)
     when "4"
-      # load the list to students.csv
-      load_students
+      puts "Please, introduce the name of the file to load the students list:"
+      filename = gets.chomp
+      load_students(filename)
     when "5"
       print_cohort
     when "9"
@@ -236,7 +239,7 @@ def input_students
 end
 
 # Exercise 4
-def load_students(filename = "students.csv")
+def load_students
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
@@ -247,18 +250,72 @@ def load_students(filename = "students.csv")
 end
 
 def save_students
-  # Open the file for writing
-  file = File.open("students.csv", "w")
-  # Iterate over the array of students
+  print "Introduce the name of the file where you will save your students list"
+  puts "Remember that it need to have an .csv extension"
+  filename = gets.chomp
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
   file.close
-  puts "Your students list has been saved successfully"
+  puts "Your students list has been saved successfully on #{filename}."
 end
 
+# Exercise 5
+
+def process(selection)
+  case selection
+    when "1"
+      # input the students
+      input_students
+    when "2"
+      # show the students
+      show_students
+    when "3"
+      print "Please, introduce the name of the file where you will save your students list"
+      puts "Remember that it need to have an .csv extension"
+      filename = gets.chomp
+      save_students(filename)
+    when "4"
+      puts "Please, introduce the name of the file to load the students list:"
+      filename = gets.chomp
+      load_students(filename)
+    when "5"
+      print_cohort
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
+  end
+end
+
+def save_students(filename)
+  file = File.open(filename, "w")
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
+  puts "Your students list has been saved successfully on #{filename}."
+end
+
+
+def load_students(filename)
+  if !File.exists?(filename)
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+  file = File.open(filename, "r")
+  file.readlines.each do |line|
+  name, cohort = line.chomp.split(',')
+    introduce_students(name, cohort)
+  end
+  file.close
+  puts "Your students list has been loaded successfully"
+end
 
 
 
