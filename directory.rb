@@ -133,6 +133,21 @@ def print_students_list
   end
 end
 
+def print_cohort
+  if @students.size > 0
+    puts "Which cohort are you interested in?"
+    cohort = STDIN.gets.chomp
+    cohort = :"#{cohort}"
+    puts "The students form the #{cohort} cohort are :"
+    @students.select do |name|
+      if name[:cohort] == cohort.capitalize
+        print "#{name[:name]} from #{name[:country_birth]}"
+        puts " loves #{name[:hobby]} and #{name[:food]}."
+      end
+    end
+  end
+end
+
 def print_footer
   if @students.size > 0
     puts
