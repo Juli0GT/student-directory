@@ -180,7 +180,6 @@ end
 
 # Exercise 10
 # .chomp() == delete("\n") ==.tr("\n", "") == .gsub("\n", "")
-puts "What's your name?"
 name = gets.delete("\n")
 
 # Exercise 12
@@ -398,7 +397,7 @@ end
 
 def load_students
   file = File.open("students.csv", "r")
-  file.readlines each do |line|
+  file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym}
   end
@@ -434,3 +433,5 @@ def process(selection)
       puts "I don't know what you meant, try again"
   end
 end
+
+interactive_menu
