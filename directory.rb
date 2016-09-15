@@ -40,6 +40,7 @@ def process(selection)
   end
 end
 
+
 def input_students
   puts "Please enter the name and cohort of the students"
   puts "To finish, just hit return twice"
@@ -47,29 +48,10 @@ def input_students
   name = STDIN.gets.chomp
   puts "Now enter the cohort"
   cohort = STDIN.gets.chomp
-  if cohort.empty?
-    cohort = :November
-  end
-  cohort = :"#{cohort}"
-  puts "#{name} (#{cohort} cohort)"
-  puts "In case that's wrong, please press 'n'"
-  correct = STDIN.gets.chomp
-
-  while correct.capitalize == "N"
-    puts "Please enter again your name"
-    name = STDIN.gets.chomp
-    puts "Now enter your cohort"
-    cohort = STDIN.gets.chomp
-    if cohort.empty?
-      cohort = "november"
-    end
-    cohort = :"#{cohort}"
-    puts "#{name} (#{cohort} cohort)"
-    puts "In case that's wrong, please press 'n'"
-    correct = STDIN.gets.chomp
-  end
+  nov_cohort(cohort)
+  correct_entry?(name, cohort)
   while !name.empty? do
-    @students << {name: name, cohort: cohort}
+    introduce_students(name, cohort)
     if @students.size == 1
       puts "Now we have #{@students.count} student:"
     else
@@ -79,28 +61,10 @@ def input_students
     puts "Enter a new name"
     name = STDIN.gets.chomp
     if !name.empty?
-      puts "And now the cohort"
+      puts "Now enter the cohort"
       cohort = STDIN.gets.chomp
-      if cohort.empty?
-        cohort = :November
-      end
-      cohort = :"#{cohort}"
-      puts "#{name} (#{cohort} cohort)"
-      puts "In case that's wrong, please press 'n'"
-      correct = STDIN.gets.chomp
-      while correct.capitalize == "N"
-        puts "Please enter again your name"
-        name = STDIN.gets.chomp
-        puts "Now enter your cohort"
-        cohort = STDIN.gets.chomp
-        if cohort.empty?
-          cohort = "november"
-        end
-        cohort = :"#{cohort}"
-        puts "#{name} (#{cohort} cohort)"
-        puts "In case that's wrong, please press 'n'"
-        correct = STDIN.gets.chomp
-      end
+      nov_cohort(cohort)
+      correct_entry?(name, cohort)
       puts "Right #{name} you have been assigned to #{cohort} cohort"
     end
   end
@@ -136,8 +100,7 @@ end
 def print_cohort
   if @students.size > 0
     puts "Which cohort are you interested in?"
-    cohort = STDIN.gets.chomp
-    cohort = :"#{cohort}"
+    cohort = STDIN.gets.chomp.to_sym
     puts "The students form the #{cohort} cohort are :"
     @students.select do |name|
       if name[:cohort] == cohort.capitalize
@@ -173,22 +136,106 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    introduce_students(name, cohort)
   end
   file.close
 end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
-  if File.exists?(filename) # if it exists
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else # if it doesn't exist
-    puts "Sorry, #{filename} doesn't exist."
-    exit # quit the program
+  if filename.nil?
+    load_students("students.csv")
+  else
+    if File.exists?(filename) # if it exists
+      load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+    else # if it doesn't exist
+      puts "Sorry, #{filename} doesn't exist."
+      exit
+    end
   end
 end
+
+# Exercise 1
+def introduce_students(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
+# Exercise 2
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  if filename.nil?
+    load_students("students.csv")
+  else
+    if File.exists?(filename) # if it exists
+      load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+    else # if it doesn't exist
+      puts "Sorry, #{filename} doesn't exist."
+      exit
+    end
+  end
+end
+
+# Exercise 3
+
+def correct_entry?(name, cohort)
+  puts "#{name} (#{cohort} cohort)"
+  puts "In case that's wrong, please press 'n'"
+  correct = STDIN.gets.chomp
+  while correct.capitalize == "N"
+    puts "Please enter again your name"
+    name = STDIN.gets.chomp
+    puts "Now enter your cohort"
+    cohort = STDIN.gets.chomp
+    if cohort.empty?
+      cohort = "November"
+    end
+    correct_entry(name, cohort)
+  end
+end
+
+def nov_cohort(cohort)
+  if cohort.empty?
+    cohort = :November
+  end
+end
+
+def input_students
+  puts "Please enter the name and cohort of the students"
+  puts "To finish, just hit return twice"
+  puts "Enter the name"
+  name = STDIN.gets.chomp
+  puts "Now enter the cohort"
+  cohort = STDIN.gets.chomp
+  nov_cohort(cohort)
+  correct_entry?(name, cohort)
+  while !name.empty? do
+    introduce_students(name, cohort)
+    if @students.size == 1
+      puts "Now we have #{@students.count} student:"
+    else
+      puts "Now we have #{@students.count} students:"
+    end
+    puts "#{name} has been added to #{cohort} cohort."
+    puts "Enter a new name"
+    name = STDIN.gets.chomp
+    if !name.empty?
+      puts "Now enter the cohort"
+      cohort = STDIN.gets.chomp
+      nov_cohort(cohort)
+      correct_entry?(name, cohort)
+      puts "Right #{name} you have been assigned to #{cohort} cohort"
+    end
+  end
+  @students.each do |name|
+    name[:hobby] = "coding"
+    name[:country_birth] = "Spain"
+    name[:food] = "paella"
+  end
+end
+
+
 
 try_load_students
 interactive_menu
