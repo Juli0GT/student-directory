@@ -390,4 +390,47 @@ def save_students
   file.close
 end
 
-touch .gitignore
+# Step 12 "Loading the data from the file"
+# First, we need to open the file for reading.
+# Then, we'll read the contents of the file, iterate over all lines,
+# split every line at the comma and put a new hash into the array @students.
+# Finally, we'll close the file.
+
+def load_students
+  file = File.open("students.csv", "r")
+  file.readlines each do |line|
+  name, cohort = line.chomp.split(",")
+    @students << {name: name, cohort: cohort.to_sym}
+  end
+  file.close
+end
+
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
+  puts "9. Exit"
+end
+
+def process(selection)
+  case selection
+    when "1"
+      # input the students
+      input_students
+    when "2"
+      # show the students
+      show_students
+    when "3"
+      # save the list to students.csv
+      save_students
+    when "4"
+      # load the list to students.csv
+      load_students
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
+  end
+end
