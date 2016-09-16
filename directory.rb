@@ -199,11 +199,7 @@ def correct_entry?(name, cohort)
   end
 end
 
-def nov_cohort(cohort)
-  if cohort.empty?
-    cohort = :November
-  end
-end
+
 
 def input_students
   puts "Please enter the name and cohort of the students"
@@ -212,7 +208,9 @@ def input_students
   name = STDIN.gets.chomp
   puts "Now enter the cohort"
   cohort = STDIN.gets.chomp
-  nov_cohort(cohort)
+  if cohort.empty?
+    cohort = "November"
+  end
   correct_entry?(name, cohort)
   while !name.empty? do
     introduce_students(name, cohort)
@@ -227,7 +225,9 @@ def input_students
     if !name.empty?
       puts "Now enter the cohort"
       cohort = STDIN.gets.chomp
-      nov_cohort(cohort)
+      if cohort.empty?
+        cohort = "November"
+      end
       correct_entry?(name, cohort)
       puts "Right #{name} you have been assigned to #{cohort} cohort"
     end
@@ -265,7 +265,6 @@ def save_students
 end
 
 # Exercise 5
-
 def process(selection)
   case selection
     when "1"
@@ -293,7 +292,6 @@ def process(selection)
 end
 
 # Exercise 6
-
 def save_students(filename)
   CSV.open(filename, "wb") do |csv|
     @students.each do |student|
@@ -317,6 +315,20 @@ def load_students(filename)
   end
   puts "Your students list has been loaded successfully"
 end
+
+# Exercise 7
+def save_students(filename)
+  CSV.open(filename, "wb") do |csv|
+    @students.each do |student|
+      csv << [student[:name], student[:cohort]]
+    end
+  end
+  puts "Your students list has been saved successfully on #{filename}."
+end
+
+#Exercise 8
+print IO.read($0)
+
 
 
 
